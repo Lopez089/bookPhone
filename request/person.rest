@@ -19,3 +19,36 @@ GET http://localhost:3001/api/persons/401
 DELETE http://localhost:3001/api/persons/1
 ###
 DELETE http://localhost:3001/api/persons/101
+
+
+
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "juan",
+    "number": "12-43-234345"
+}
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "number": "12-43-234345"
+}
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "number": "12-43-234345"
+}
+###
+POST http://localhost:3001/api/persons
+content-type: application/json
+
+{
+    "name": "juan",
+    "number": "12-43-234345"
+}
