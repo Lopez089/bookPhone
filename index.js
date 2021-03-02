@@ -17,7 +17,7 @@ const customformat = (tokens, req, res) => {
 app.use(cors());
 app.use(express.json());
 app.use(morgan(customformat));
-
+app.use(express.static("build"));
 let persons = [
   {
     name: "Arto Hellas",
