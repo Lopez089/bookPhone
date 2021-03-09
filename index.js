@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
+const getAllPhone = require("./controllers/getAllPhone");
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan(customformat));
 app.use(express.static("build"));
+
 let persons = [
   {
     name: "Arto Hellas",
@@ -41,10 +43,7 @@ let persons = [
   },
 ];
 
-app.get("/api/persons", (req, res) => {
-  res.json(persons);
-  res.status(200);
-});
+app.get("/api/persons", getAllPhone);
 
 app.get("/info", (req, res) => {
   const date = new Date();

@@ -3,22 +3,27 @@ const mongoose = require("mongoose");
 
 const url = process.env.MONGO_URI;
 
-mongoose.connect(url, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-});
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then((res) => {
+    console.log("conction bd");
+  })
+  .catch((err) => console.log(`error connection to mongodb: ${err}`));
 
 const phoneSchema = new mongoose.Schema({
   name: String,
   number: String,
 });
 
-const Phone = mongoose.model("Phone", phoneSchema);
+module.exports = mongoose.model("Phone", phoneSchema);
 
 ///////////////////////////////////////////////////////////////////////
-
+/* 
 const name = process.argv[2] || undefined;
 const number = process.argv[3] || undefined;
 
@@ -41,4 +46,4 @@ if (!name && !number) {
       mongoose.connection.close();
     })
     .catch((err) => console.log({ err }));
-}
+} */
