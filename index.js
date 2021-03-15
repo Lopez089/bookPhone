@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 const getAllPhone = require("./controllers/getAllPhone");
 const createPhone = require("./controllers/createPhone");
+const deletePhone = require("./controllers/createPhone");
+//const errorHandler = require("./controllers/errorHandler");
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
 
@@ -20,29 +22,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan(customformat));
 app.use(express.static("build"));
-
-let persons = [
-  {
-    name: "Arto Hellas",
-    number: "040-123456",
-    id: 1,
-  },
-  {
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-    id: 2,
-  },
-  {
-    name: "Dan Abramov",
-    number: "12-43-234345",
-    id: 3,
-  },
-  {
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
-    id: 4,
-  },
-];
 
 app.get("/api/persons", getAllPhone);
 
@@ -66,15 +45,16 @@ app.get("/api/persons/:id", (req, res) => {
   }
 });
 
-app.delete("/api/persons/:id", (req, res) => {
-  const { id } = req.params;
-
-  persons = persons.filter((person) => person.id !== Number(id));
-
-  res.status(204).end();
-});
+app.delete("/api/persons/:id", deletePhone);
 
 app.post("/api/persons/", createPhone);
+
+const errorHandler = (error, req, res, next) => {
+  console.log(error.message);
+  next(error);
+};
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
