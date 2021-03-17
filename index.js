@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const getAllPhone = require("./controllers/getAllPhone");
 const createPhone = require("./controllers/createPhone");
-const deletePhone = require("./controllers/createPhone");
+const deletePhone = require("./controllers/deletePhone");
 const updatePhone = require("./controllers/updatePhone");
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
