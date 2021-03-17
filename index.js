@@ -5,7 +5,7 @@ const cors = require("cors");
 const getAllPhone = require("./controllers/getAllPhone");
 const createPhone = require("./controllers/createPhone");
 const deletePhone = require("./controllers/createPhone");
-//const errorHandler = require("./controllers/errorHandler");
+const updatePhone = require("./controllers/updatePhone");
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
 
@@ -48,6 +48,8 @@ app.get("/api/persons/:id", (req, res) => {
 app.delete("/api/persons/:id", deletePhone);
 
 app.post("/api/persons/", createPhone);
+
+app.put("/api/persons/:id", updatePhone);
 
 const errorHandler = (error, req, res, next) => {
   console.log(error.message);
