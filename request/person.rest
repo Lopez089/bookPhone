@@ -51,3 +51,13 @@ content-type: application/json
     "name": "pepe",
     "number": "12-43-234345"
 }
+
+###
+
+PUT http://localhost:3001/api/persons/604a6613bb3bf519d5341044
+content-type: application/json
+
+{
+    "name": "dssdfsdf",
+    "number": "nwe"
+}

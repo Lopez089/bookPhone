@@ -6,6 +6,7 @@ const getAllPhone = require("./controllers/getAllPhone");
 const createPhone = require("./controllers/createPhone");
 const deletePhone = require("./controllers/deletePhone");
 const updatePhone = require("./controllers/updatePhone");
+const infoPhone = require("./controllers/infoPhone");
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
 
@@ -25,14 +26,7 @@ app.use(express.static("build"));
 
 app.get("/api/persons", getAllPhone);
 
-app.get("/info", (req, res) => {
-  const date = new Date();
-  const lengthPerson = persons.length;
-
-  res.send(`<div> <p>Phonebook has info for ${lengthPerson} people</p>
-  <p>${date}</p> </div>
-  `);
-});
+app.get("/info", infoPhone);
 
 app.get("/api/persons/:id", (req, res) => {
   const { id } = req.params;
