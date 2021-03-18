@@ -7,6 +7,7 @@ const createPhone = require("./controllers/createPhone");
 const deletePhone = require("./controllers/deletePhone");
 const updatePhone = require("./controllers/updatePhone");
 const infoPhone = require("./controllers/infoPhone");
+const getIdPhone = require('./controllers/getIdPhone')
 
 morgan.token("request", (req, res) => JSON.stringify(req.body));
 
@@ -28,16 +29,7 @@ app.get("/api/persons", getAllPhone);
 
 app.get("/info", infoPhone);
 
-app.get("/api/persons/:id", (req, res) => {
-  const { id } = req.params;
-
-  const person = persons.find((person) => person.id === Number(id));
-  if (person) {
-    res.json(person);
-  } else {
-    res.status(404).end();
-  }
-});
+app.get("/api/persons/:id", getIdPhone );
 
 app.delete("/api/persons/:id", deletePhone);
 
