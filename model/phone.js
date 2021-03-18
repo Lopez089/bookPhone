@@ -1,4 +1,5 @@
 require("dotenv").config();
+const uniqueValidator = require("mongoose-unique-validator");
 const mongoose = require("mongoose");
 
 const url = process.env.MONGO_URI;
@@ -16,8 +17,8 @@ mongoose
   .catch((err) => console.log(`error connection to mongodb: ${err}`));
 
 const phoneSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: { type: String, unique: true },
+  number: { type: String },
 });
 
 phoneSchema.set("toJSON", {
@@ -28,30 +29,6 @@ phoneSchema.set("toJSON", {
   },
 });
 
+phoneSchema.plugin(uniqueValidator);
+
 module.exports = mongoose.model("Phone", phoneSchema);
-
-///////////////////////////////////////////////////////////////////////
-/* 
-const name = process.argv[2] || undefined;
-const number = process.argv[3] || undefined;
-
-const phone = new Phone({
-  name,
-  number,
-});
-
-if (!name && !number) {
-  Phone.find({}).then((res) => {
-    res.forEach((phone) => {
-      console.log(phone);
-    });
-    mongoose.connection.close();
-  });
-} else {
-  phone.save()
-    .then((res) => {
-      console.log("phone save");
-      mongoose.connection.close();
-    })
-    .catch((err) => console.log({ err }));
-} */
