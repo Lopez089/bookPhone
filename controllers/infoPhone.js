@@ -1,7 +1,7 @@
-const Phone = require("../model/phone");
+const Phone = require('../model/phone')
 
 const infoPhone = (req, res, next) => {
-  const date = new Date();
+  const date = new Date()
 
   const lengthPerson = Phone.find({})
     .then((result) =>
@@ -9,7 +9,7 @@ const infoPhone = (req, res, next) => {
   <p>${date}</p> </div>
   `)
     )
-    .catch((err) => next(err));
-};
+    .catch((err) => next(err))
+}
 
-module.exports = infoPhone;
+module.exports = infoPhone
