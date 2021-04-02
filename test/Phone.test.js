@@ -41,7 +41,7 @@ describe('Get Phone', () => {
 });
 
 describe('Post phone', () => {
-    test('adding a new note to metho post', async() => {
+    test('adding a new phone to metho post', async() => {
         
         const newPhone =  {
                 name: 'Cristian',
@@ -59,9 +59,44 @@ describe('Post phone', () => {
         expect(res.body).toHaveLength(inicialPhone.length +1)
         expect(content).toContain(newPhone.name)
     });
-    test('adding a new note without name is not adding', async() => {
+    test('adding a new phone without name is not adding', async() => {
         
         const newPhone =  {
+                number: '333333333',
+            }
+
+        await api 
+            .post('/api/persons')
+            .send(newPhone)
+            .expect(500)
+            .expect('content-Type', /text\/html/)
+
+        const {res} = await getAllPhone()
+        
+        expect(res.body).toHaveLength(inicialPhone.length)
+    });
+
+    test('adding a new phone without number is not adding', async() => {
+        
+        const newPhone =  {
+                name: 'Roberto',
+            }
+
+        await api 
+            .post('/api/persons')
+            .send(newPhone)
+            .expect(500)
+            .expect('content-Type', /text\/html/)
+
+        const {res} = await getAllPhone()
+        
+        expect(res.body).toHaveLength(inicialPhone.length)
+    });
+
+    test('adding a new phone with name less three letters is not adding', async() => {
+        
+        const newPhone =  {
+                name: 'Ju',
                 number: '333333333'
             }
 
@@ -75,6 +110,47 @@ describe('Post phone', () => {
         
         expect(res.body).toHaveLength(inicialPhone.length)
     });
+
+    test('adding a new phone with number less letters is not adding', async() => {
+        
+        const newPhone =  {
+                name: 'Juaaaaaaaaaaaa',
+                number: '33333'
+            }
+
+        await api 
+            .post('/api/persons')
+            .send(newPhone)
+            .expect(500)
+            .expect('content-Type', /text\/html/)
+
+        const {res} = await getAllPhone()
+        
+        expect(res.body).toHaveLength(inicialPhone.length)
+
+
+    });
+
+    test('adding a new phone with name repeated is not adding', async() => {
+        
+        const newPhone =  {
+                name: 'Pepe',
+                number: '123456789'
+            }
+
+        await api 
+            .post('/api/persons')
+            .send(newPhone)
+            .expect(500)
+            .expect('content-Type', /text\/html/)
+
+        const {res} = await getAllPhone()
+        
+        expect(res.body).toHaveLength(inicialPhone.length)
+
+
+    });
+
 });
 
 
