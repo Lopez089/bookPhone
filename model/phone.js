@@ -2,7 +2,9 @@ require('dotenv').config()
 const uniqueValidator = require('mongoose-unique-validator')
 const mongoose = require('mongoose')
 
-const url = process.env.MONGO_URI
+const {MONGO_URI, MONGO_URI_TEST, NODE_ENV} = process.env
+
+const url = NODE_ENV === 'test' ? MONGO_URI_TEST : MONGO_URI
 
 mongoose
   .connect(url, {
@@ -17,8 +19,8 @@ mongoose
   .catch((err) => console.log(`error connection to mongodb: ${err}`))
 
 const phoneSchema = new mongoose.Schema({
-  name: { type: String, unique: true, minlength: 3 },
-  number: { type: String, minlength: 8 }
+  name: { type: String, unique: true, minlength: 3, required: true },
+  number: { type: String, minlength: 8, required: true }
 })
 
 phoneSchema.set('toJSON', {
