@@ -19,12 +19,17 @@ beforeEach (async ()=>{
 
 
 describe('Get Phone', () => {
-    test('Phone are returned as json', async() => {
-       await api
+    test.only('Phone are returned as json', async() => {
+
+        const {res} = await getAllPhone()
+
+        await api
             .get('/api/persons/')
             .expect(200)
             .expect('Content-Type', /application\/json/)
-
+            .expect(response=> {
+                expect(response.body).toEqual(res.body)
+            })
     });
    
     test('there are two Phone', async () => {
@@ -179,6 +184,9 @@ describe('delete phone',  () => {
     })
     
 });
+
+
+
 
 
 afterAll(()=>{
