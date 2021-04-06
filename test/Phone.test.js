@@ -40,7 +40,7 @@ describe('Get Phone', () => {
     
 });
 
-describe('Post phone', () => {
+describe ('Post phone', () => {
     test('adding a new phone to metho post', async() => {
         
         const newPhone =  {
@@ -151,6 +151,33 @@ describe('Post phone', () => {
 
     });
 
+});
+
+describe('delete phone',  () => {
+    test('delete phone the list ', async () => {
+
+        const {res} = await getAllPhone()
+        const idDelete  = res.body[1].id
+
+        await api
+            .delete(`/api/persons/${idDelete}`)
+            .expect(204)
+
+        const {res:res2} = await getAllPhone()
+        expect(res2.body).toHaveLength(1)
+    });
+
+    test('try delete phone with id incorrect', async ()=>{
+        const idDelete = '39827'
+
+        await api 
+            .delete(`/api/persons/${idDelete}`)
+            .expect(500)
+
+        const {res} = await getAllPhone()
+        expect(res.body).toHaveLength(2)
+    })
+    
 });
 
 
