@@ -10,16 +10,15 @@ const Phone = require('../model/phone')
 beforeEach (async ()=>{
     await Phone.deleteMany({})
 
-    const phone1 = new Phone(inicialPhone[0])
-    await phone1.save()
-
-    const phone2 = new Phone(inicialPhone[1])
-    await phone2.save()
+    for(let phone of inicialPhone){
+        const newObjectPhone = new Phone(phone)
+        await newObjectPhone.save()
+    }
 })
 
 
 describe('Get Phone', () => {
-    test.only('Phone are returned as json', async() => {
+    test('Phone are returned as json', async() => {
 
         const {res} = await getAllPhone()
 
